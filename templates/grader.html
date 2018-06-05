@@ -47,8 +47,8 @@
     </div>
 </nav>
 <div id="content" class="container" style="
-            width: 75%;
-            height: 100%;
+            width: 40%;
+            height: 40%;
             float: right;
             z-index: 8000;
             margin-bottom:
@@ -93,52 +93,8 @@
 
       var clicked = false;
       var fPoint = {};
-      c.onclick = function(e) {
-        console.log(clicked);
-        if (!clicked) {
-            var x = (image.width / c.scrollWidth) * e.offsetX;
-            var y = (image.height / c.scrollHeight) * e.offsetY;
-            console.log(e);
-            ctx.strokeStyle = "pink";
-            ctx.fillStyle = "pink";
-            ctx.beginPath();
-            ctx.arc(x, y, 3, 0, 2*Math.PI, false);
-            ctx.fill();
-            fPoint = {
-              x: x,
-              y: y
-            };
-        } else {
-            var x = (image.width / c.scrollWidth) * e.offsetX;
-            var y = (image.height / c.scrollHeight) * e.offsetY;
-            var xMin;
-            var xMax;
-            var yMin;
-            var yMin;
-            if (x > fPoint.x) {
-                xMax = x;
-                xMin = fPoint.x;
-            } else {
-                xMax = fPoint.x;
-                xMin = x;
-            }
-            if (y > fPoint.y) {
-              yMax = y;
-              yMin = fPoint.y;
-            } else {
-              yMax = fPoint.y;
-              yMin = y;
-            }
-            fPoint = {};
-            window.location.replace("/add/" + (labels.length + 1) +
-            "?xMin=" + xMin +
-            "&xMax=" + xMax +
-            "&yMin=" + yMin +
-            "&yMax=" + yMax);
-        }
-        clicked = !clicked;
-      };
-        
+
+
     </script>
 </div>
 </body>
