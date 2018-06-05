@@ -84,9 +84,6 @@
         c.height = image.height;
         ctx.drawImage(image, 0, 0);
         console.log(labels);
-        for (i = 0; i < labels.length; i++){
-            drawLabels(labels[i].id, labels[i].xMin, labels[i].xMax, labels[i].yMin, labels[i].yMax);
-        }
       };
       image.style.display="block";
       image.src = "image/{{ image }}";
@@ -94,8 +91,8 @@
       var clicked = false;
       var fPoint = {};
 
-
     </script>
 </div>
+
 </body>
 </html>
