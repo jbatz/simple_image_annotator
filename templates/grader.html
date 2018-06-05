@@ -75,15 +75,6 @@
       var labels = {{ labels|tojson|safe }};
       var c = document.getElementById("canvas");
       var ctx = c.getContext("2d");
-      var drawLabels = function(id, xMin, xMax, yMin, yMax) {
-        ctx.strokeStyle = "pink";
-        ctx.fillStyle = "pink";
-        ctx.rect(xMin, yMin, xMax - xMin, yMax - yMin);
-        ctx.lineWidth="3";
-        ctx.stroke();
-        ctx.font = "10px Arial";
-        ctx.fillText("id: " + id, xMin,yMin);
-      };
       var image = new Image();
       console.log(image);
       image.onload = function(e) {
@@ -147,15 +138,7 @@
         }
         clicked = !clicked;
       };
-
-      // document.onkeydown = function(e) {
-      //   if ("key" in e) {
-      //     if(e.key == "Escape" || e.key == "Esc") {
-      //       clicked = false;
-      //       fPoint = {};
-      //     }
-      //   }
-      // };
+        
     </script>
 </div>
 </body>
