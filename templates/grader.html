@@ -18,7 +18,7 @@
 
      <div class="row">
         <div class="text-center">
-            <text> {{ image }} {{ head }}/{{ len }} </text>
+            <text> {{ mask }} {{ head }}/{{ len }} </text>
         </div>
      </div>
 
@@ -48,18 +48,18 @@
       var labels = {{ labels|tojson|safe }};
       var c = document.getElementById("canvas");
       var ctx = c.getContext("2d");
-      var image = new Image();
-      console.log(image);
-      image.onload = function(e) {
-        ctx.canvas.width = image.width;
-        ctx.canvas.height = image.height;
-        c.width = image.width;
-        c.height = image.height;
-        ctx.drawImage(image, 0, 0);
+      var image2 = new Image();
+      console.log(image2);
+      image2.onload = function(e) {
+        ctx.canvas.width = image2.width;
+        ctx.canvas.height = image2.height;
+        c.width = image2.width;
+        c.height = image2.height;
+        ctx.drawImage(image2, 0, 0);
         console.log(labels);
       };
-      image.style.display="block";
-      image.src = "image/{{ image }}";
+      image2.style.display="block";
+      image2.src = "image/{{ mask }}";
 
       var clicked = false;
       var fPoint = {};

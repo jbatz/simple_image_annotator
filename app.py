@@ -18,11 +18,11 @@ def grader():
     if app.config["HEAD"] == len(app.config["MASK_FILES"]):
         return redirect(url_for('bye'))
     directory = app.config['MASK_DIR']
-    image = app.config["MASK_FILES"][app.config["HEAD"]]
+    mask = app.config["MASK_FILES"][app.config["HEAD"]]
     labels = app.config["LABELS"]
     not_end = not (app.config["HEAD"] == len(app.config["MASK_FILES"]) - 1)
     print(not_end)
-    return render_template('grader.html', not_end=not_end, directory=directory, image=image, labels=labels,
+    return render_template('grader.html', not_end=not_end, directory=directory, mask=mask, labels=labels,
                            head=app.config["HEAD"] + 1, len=len(app.config["MASK_FILES"]))
 
 
