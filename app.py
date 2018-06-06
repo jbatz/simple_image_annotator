@@ -1,5 +1,6 @@
 import argparse
 from os import walk
+import csv
 
 from flask import Flask, redirect, url_for, request
 from flask import render_template
@@ -30,17 +31,9 @@ def save_grade():
     mask_id = mask.split('.')[0]
     print('id: {} label: {}'.format(mask_id, label))
     app.config["HEAD"] = app.config["HEAD"] + 1
-    with open(app.config["CSV"], 'a') as f:
-        pass
-        # for label in app.config["LABELS"]:
-        #     f.write(image + "," +
-        #             label["id"] + "," +
-        #             label["name"] + "," +
-        #             str(round(float(label["xMin"]))) + "," +
-        #             str(round(float(label["xMax"]))) + "," +
-        #             str(round(float(label["yMin"]))) + "," +
-        #             str(round(float(label["yMax"]))) + "\n")
-    app.config["LABELS"] = []
+    with open(app.config["CSV"], 'a') as csv_file:
+        csv_writer = csv.writer(csv_file, delimiter=',')
+        csv_writer.writerow([mask_id, label])
     return redirect(url_for('grader'))
 
 
