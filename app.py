@@ -17,14 +17,18 @@ def grader():
     mask = app.config["MASK_FILES"][app.config["HEAD"]]
     labels = app.config["LABELS"]
     not_end = not (app.config["HEAD"] == len(app.config["MASK_FILES"]) - 1)
-    print(not_end)
     return render_template('grader.html', not_end=not_end, directory=directory, mask=mask, labels=labels,
                            head=app.config["HEAD"] + 1, len=len(app.config["MASK_FILES"]))
 
 
 @app.route('/next')
-def next():
-    image = app.config["MASK_FILES"][app.config["HEAD"]]
+def save_grade():
+    label = request.args.get('label')
+    print('label: {}'.format(label))
+
+    mask = app.config["MASK_FILES"][app.config["HEAD"]]
+    mask_id = mask.split('.')[0]
+    print('id: {} label: {}'.format(mask_id, label))
     app.config["HEAD"] = app.config["HEAD"] + 1
     with open(app.config["CSV"], 'a') as f:
         pass
