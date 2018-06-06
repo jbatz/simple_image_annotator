@@ -39,14 +39,15 @@
     {% endif %}
     </div>
 
-    <div class="well text-center">
-    <span>Sister Properties:</span>
+    <div class="col-md-12">
+
     <div class="col-md-6">
         <canvas id="canvas1" style="width:100%; height:80%; margin: 0; padding: 0;"></canvas>
     </div>
     <div class="col-md-6">
         <canvas id="canvas2" style="width:100%; height:80%; margin: 0; padding: 0;"></canvas>
     </div>
+
 </div>
 
     <!-- <a href="/next" class="btn btn-primary" style="float:left;" type="button">
@@ -54,16 +55,33 @@
     </a> -->
     <script>
       var labels = {{ labels|tojson|safe }};
-      var c = document.getElementById("canvas2");
-      var ctx = c.getContext("2d");
+
+      var c1 = document.getElementById("canvas1");
+      var ctx1 = c1.getContext("2d");
+      var image1 = new Image();
+      console.log(image1);
+      image1.onload = function(e) {
+        ctx1.canvas.width = image1.width;
+        ctx1.canvas.height = image1.height;
+        c1.width = image1.width;
+        c1.height = image1.height;
+        ctx1.drawImage(image1, 0, 0);
+        console.log(labels);
+      };
+      image1.style.display="block";
+      image1.src = "image/{{ mask }}";
+
+
+      var c2 = document.getElementById("canvas2");
+      var ctx2 = c2.getContext("2d");
       var image2 = new Image();
       console.log(image2);
       image2.onload = function(e) {
-        ctx.canvas.width = image2.width;
-        ctx.canvas.height = image2.height;
-        c.width = image2.width;
-        c.height = image2.height;
-        ctx.drawImage(image2, 0, 0);
+        ctx2.canvas.width = image2.width;
+        ctx2.canvas.height = image2.height;
+        c2.width = image2.width;
+        c2.height = image2.height;
+        ctx2.drawImage(image2, 0, 0);
         console.log(labels);
       };
       image2.style.display="block";
