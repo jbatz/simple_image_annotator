@@ -1,9 +1,5 @@
-import sys
-from os import walk
-import imghdr
-import csv
 import argparse
-import glob
+from os import walk
 
 from flask import Flask, redirect, url_for, request
 from flask import render_template
@@ -80,10 +76,16 @@ def label(id):
 #     app.config["HEAD"] = app.config["HEAD"] - 1
 #     return redirect(url_for('grader'))
 
+@app.route('/mask/<f>')
+def masks(f):
+    mask_dir = app.config['MASK_DIR']
+    return send_file(mask_dir + f)
+
+
 @app.route('/image/<f>')
 def images(f):
-    images = app.config['MASK_DIR']
-    return send_file(images + f)
+    image_dir = app.config['IMAGE_DIR']
+    return send_file(image_dir + f)
 
 
 def main():
