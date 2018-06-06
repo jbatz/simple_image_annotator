@@ -9,8 +9,8 @@
 <body style="height:100%;">
 
 <div id="content" class="container" style="
-            width: 50%;
-            height: 50%;
+            width: 100%;
+            height: 100%;
             float: right;
             z-index: 8000;
             margin-bottom:
@@ -38,9 +38,17 @@
       </a>
     {% endif %}
     </div>
-    <div style="overflow: scroll">
+
+    <div class="well text-center">
+    <span>Sister Properties:</span>
+    <div class="col-md-6">
+        <canvas id="canvas1" style="width:100%; height:80%; margin: 0; padding: 0;"></canvas>
+    </div>
+    <div class="col-md-6">
         <canvas id="canvas2" style="width:100%; height:80%; margin: 0; padding: 0;"></canvas>
     </div>
+</div>
+
     <!-- <a href="/next" class="btn btn-primary" style="float:left;" type="button">
       <span class="glyphicon glyphicon-arrow-left"></span>
     </a> -->
