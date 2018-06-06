@@ -10,15 +10,13 @@ app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 
-@app.route('/grader')
+@app.route('/')
 def grader():
     if app.config["HEAD"] == len(app.config["MASK_FILES"]):
         return redirect(url_for('bye'))
-    directory = app.config['MASK_DIR']
     mask = app.config["MASK_FILES"][app.config["HEAD"]]
-    labels = app.config["LABELS"]
     not_end = not (app.config["HEAD"] == len(app.config["MASK_FILES"]) - 1)
-    return render_template('grader.html', not_end=not_end, directory=directory, mask=mask, labels=labels,
+    return render_template('grader.html', not_end=not_end, filename=mask,
                            head=app.config["HEAD"] + 1, len=len(app.config["MASK_FILES"]))
 
 
@@ -42,37 +40,6 @@ def bye():
     return send_file("taf.gif", mimetype='image/gif')
 
 
-@app.route('/add/<id>')
-def add(id):
-    xMin = request.args.get("xMin")
-    xMax = request.args.get("xMax")
-    yMin = request.args.get("yMin")
-    yMax = request.args.get("yMax")
-    app.config["LABELS"].append({"id": id, "name": "", "xMin": xMin, "xMax": xMax, "yMin": yMin, "yMax": yMax})
-    return redirect(url_for('grader'))
-
-
-@app.route('/remove/<id>')
-def remove(id):
-    index = int(id) - 1
-    del app.config["LABELS"][index]
-    for label in app.config["LABELS"][index:]:
-        label["id"] = str(int(label["id"]) - 1)
-    return redirect(url_for('grader'))
-
-
-@app.route('/label/<id>')
-def label(id):
-    name = request.args.get("name")
-    app.config["LABELS"][int(id) - 1]["name"] = name
-    return redirect(url_for('grader'))
-
-
-# @app.route('/prev')
-# def prev():
-#     app.config["HEAD"] = app.config["HEAD"] - 1
-#     return redirect(url_for('grader'))
-
 @app.route('/mask/<f>')
 def masks(f):
     mask_dir = app.config['MASK_DIR']
@@ -83,6 +50,12 @@ def masks(f):
 def images(f):
     image_dir = app.config['IMAGE_DIR']
     return send_file(image_dir + f)
+
+
+def init_csv():
+    with open(app.config["CSV"], 'w') as csv_file:
+        csv_writer = csv.writer(csv_file, delimiter=',')
+        csv_writer.writerow(['id', 'label'])
 
 
 def main():
@@ -101,6 +74,8 @@ def main():
     for (dirpath, dirnames, filenames) in walk(args.mask_dir):
         mask_files.extend(filenames)
         break
+
+    init_csv()
 
     app.config["MASK_FILES"] = mask_files
     app.config["HEAD"] = 0
